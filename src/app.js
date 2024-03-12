@@ -1,16 +1,20 @@
 import express, { Router } from 'express'
 
-const createApp = () => {
-  const app = express()
-  const router = Router()
+class CreateApp {
+  constructor() {
+    this.app = express()
+    this.router = Router()
+  }
 
-  app.use('/api/v1', router)
+  createApp() {
+    this.app.use('/api/v1', this.router)
 
-  router.get('/', (req, res) => {
-    res.send('Hello World!')
-  })
+    this.router.get('/', (req, res) => {
+      res.send('Hello World!')
+    })
 
-  return app
+    return this.app;
+  }
 }
 
-export { createApp }
+export { CreateApp }
