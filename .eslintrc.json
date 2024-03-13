@@ -27,5 +27,11 @@
   },
   "rules": {
     "no-console": "warn"
+  },
+
+  "variable":{
+    "camelcase": "on"
   }
+
+
 }
