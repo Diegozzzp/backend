@@ -1,11 +1,10 @@
 import express, { Router } from 'express'
 import cors from 'cors'
 import { config } from '../config/config.js'
-// import pkg from 'express-ipfilter';
+import pkg from 'express-ipfilter';
 import path from 'path';
-import fs from 'fs'
 
-// const { IpFilter } = pkg;
+const { IpFilter } = pkg;
 
 const { corsAllow, ipsAllow } = config.whiteList
 
@@ -37,24 +36,24 @@ const createApp = () => {
   // middlewares
   app.use(cors(whiteList.cors))
 
-  // Development | is used to validated IPs Address
-  // app.use(function(req, res, next) {
-	// 	IpFilter(whiteList.ips, {mode: "allow", log: false, detectIp: clientIp})(req, res, function(err) {
-	// 		if (err === undefined) {
-	// 			return next();
-	// 		}
-	// 		res.status(403).json({
-  //       message: 'Forbidden',
-  //       code: 403,
-  //       error: "You are not authorized to access this page.",
-  //     });
-	// 	});
-	// });
-
   app.get('/', (req, res) => {
     const welcomeFilePath = path.join(publicDirectoryPath, 'welcome.html');
     res.sendFile(welcomeFilePath);
-});
+  });
+
+  // Development | is used to validated IPs Address
+  app.use(function(req, res, next) {
+		IpFilter(whiteList.ips, {mode: "allow", log: false, detectIp: clientIp})(req, res, function(err) {
+			if (err === undefined) {
+				return next();
+			}
+			res.status(403).json({
+        message: 'Forbidden',
+        code: 403,
+        error: "You are not authorized to access this page.",
+      });
+		});
+	});
 
   app.use('/api/v1', router)
 
