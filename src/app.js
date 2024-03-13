@@ -1,9 +1,11 @@
 import express, { Router } from 'express'
 import cors from 'cors'
 import { config } from '../config/config.js'
-import pkg from 'express-ipfilter';
+// import pkg from 'express-ipfilter';
+import path from 'path';
+import fs from 'fs'
 
-const { IpFilter } = pkg;
+// const { IpFilter } = pkg;
 
 const { corsAllow, ipsAllow } = config.whiteList
 
@@ -28,6 +30,10 @@ const createApp = () => {
   const app = express()
   const router = Router()
 
+  // welcome project
+  const publicDirectoryPath = path.join(new URL('.', import.meta.url).pathname, 'public');
+  app.use(express.static(publicDirectoryPath));
+
   // middlewares
   app.use(cors(whiteList.cors))
 
@@ -46,33 +52,9 @@ const createApp = () => {
 	// });
 
   app.get('/', (req, res) => {
-    const htmlResp = `
-    <html>
-    <head>
-      <title>
-        NodeJs and Express on Vercel
-      </title>
-    </head>
-    <body>
-      Iam project backend on version 'v1'
-    </body>
-
-    <section>
-      <p>Integrants:</p>
-
-      <ul>
-        <li>
-          Pedro Montes
-        </li>
-        <li>
-          Carlos Palacios
-        </li>
-      </ul>
-    </section>
-  </html>
-    `
-    res.send(htmlResp)
-  })
+    const welcomeFilePath = path.join(publicDirectoryPath, 'welcome.html');
+    res.sendFile(welcomeFilePath);
+});
 
   app.use('/api/v1', router)
 
