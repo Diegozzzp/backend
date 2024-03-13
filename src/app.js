@@ -1,20 +1,28 @@
 import express, { Router } from 'express'
+import cors from 'cors'
+import { config } from '../config/config.js'
 
-class CreateApp {
-  constructor() {
-    this.app = express()
-    this.router = Router()
-  }
+const { corsAllow } = config.whiteList
 
-  createApp() {
-    this.app.use('/api/v1', this.router)
+let whiteList = {}
 
-    this.router.get('/', (req, res) => {
-      res.send('Hello World!')
-    })
-
-    return this.app;
-  }
+whiteList['cors'] = {
+  origin: atob(corsAllow),
 }
 
-export { CreateApp }
+const createApp = () => {
+  const app = express()
+  const router = Router()
+
+  // middlewares
+  app.use(cors(whiteList.cors))
+  app.use('/api/v1', router)
+
+  router.get('/', (req, res) => {
+    res.send('Hello World!')
+  })
+
+  return app
+}
+
+export { createApp }
