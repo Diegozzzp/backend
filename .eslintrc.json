@@ -8,10 +8,12 @@
     "eslint:recommended",
     "prettier"
   ],
+  "plugins": ["jest"],
   "overrides": [
     {
       "env": {
-        "node": true
+        "node": true,
+        "jest/globals": true
       },
       "files": [
         ".eslintrc.{json,cjs}"
@@ -26,6 +28,11 @@
     "sourceType": "module"
   },
   "rules": {
-    "no-console": "warn"
+    "no-console": "warn",
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
   }
 }
