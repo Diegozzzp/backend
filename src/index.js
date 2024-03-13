@@ -1,7 +1,7 @@
-import { CreateApp } from './app.js'
+import { createApp } from './app.js'
 
 const port = process.env.PORT || 3000
 
-const app = new CreateApp().createApp()
+const app = createApp()
 
 app.listen(port)
