@@ -1,6 +1,6 @@
 {
   "name": "backend-codicon",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This backend is used to CODICON 2024, team name teamdev",
   "main": "src/index.js",
   "type": "module",
@@ -48,6 +48,6 @@
     "^.+\\.js$": "babel-jest"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "18.x"
   }
 }

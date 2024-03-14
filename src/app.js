@@ -2,6 +2,7 @@ import express, { Router } from 'express'
 import cors from 'cors'
 import { config } from '../config/config.js'
 import pkg from 'express-ipfilter';
+import path from 'path';
 
 const { IpFilter } = pkg;
 
@@ -28,8 +29,19 @@ const createApp = () => {
   const app = express()
   const router = Router()
 
+  // welcome project
+  const publicDirectoryPath = path.join(new URL('.', import.meta.url).pathname, 'public');
+  app.use(express.static(publicDirectoryPath));
+
   // middlewares
   app.use(cors(whiteList.cors))
+
+  app.get('/', (req, res) => {
+    const welcomeFilePath = path.join(publicDirectoryPath, 'welcome.html');
+    res.sendFile(welcomeFilePath);
+  });
+
+  // Development | is used to validated IPs Address
   app.use(function(req, res, next) {
 		IpFilter(whiteList.ips, {mode: "allow", log: false, detectIp: clientIp})(req, res, function(err) {
 			if (err === undefined) {
