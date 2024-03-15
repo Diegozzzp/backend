@@ -4,7 +4,7 @@ let CORS_WHITELIST = null
 let IPS_ALLOW = null
 
 if (!process.env.CORS_WHITELIST) {
-  CORS_WHITELIST = "*"
+  CORS_WHITELIST = btoa("*")
 } else {
   CORS_WHITELIST = btoa(process.env.CORS_WHITELIST.split(','))
 }
