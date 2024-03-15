@@ -10,7 +10,7 @@ if (!process.env.CORS_WHITELIST) {
 }
 
 if (!process.env.IPS_ALLOW) {
-  IPS_ALLOW = [['190.0.0.0', '190.255.255.255'],['200.0.0.0', '200.255.255.255']]
+  IPS_ALLOW = "[['190.0.0.0', '190.255.255.255'],['200.0.0.0', '200.255.255.255']]"
 } else {
   IPS_ALLOW = JSON.parse(process.env.IPS_ALLOW.replace(/'/g, '"'))
 }
