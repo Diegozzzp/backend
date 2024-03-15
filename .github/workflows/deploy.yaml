@@ -15,6 +15,7 @@ jobs:
       - name: SetUp Environment
         run: |
           echo ${{ secrets.ENV_PROD }} >> .env
+          ls -al
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Pull Vercel Environment Information
