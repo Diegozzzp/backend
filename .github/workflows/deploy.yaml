@@ -14,7 +14,8 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Print Environment Info
-        run: echo "secrets: ${{ secrets }}"
+        run: | 
+          echo "secrets: ${{ secrets }}""
           # echo "VERCEL_ORG_ID: ${{ secrets }}"
           # echo "VERCEL_PROJECT_ID: ${{ VERCEL_PROJECT_ID }}"
           # echo "VERCEL_TOKEN: ${{ secrets.Production.VERCEL_TOKEN }}"
