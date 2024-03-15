@@ -15,8 +15,8 @@ jobs:
         run: npm install --global vercel@latest
       - name: Print Environment Info
         run: | 
-          echo "secrets prod: ${{ secrets.Production }}"
-          echo "secrets: ${{ secrets.Production }}" > file.txt
+          echo "secrets prod: ${{ secrets.Production.VERCEL_ORG_ID }}"
+          echo "secrets: ${{ secrets.Production.VERCEL_ORG_ID }}" > file.txt
           cat file.txt
       # - name: Pull Vercel Environment Information
       #   run: vercel pull --yes --environment=preview --token=${{ secrets.Production.VERCEL_TOKEN }}
